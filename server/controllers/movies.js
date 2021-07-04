@@ -2,63 +2,39 @@ const express = require('express')
 const MovieModel = require('../models/movieModel')
 const CategoryModel = require('../models/categoryModel');
 
-const getMovies = (req, res) => {
-	MovieModel.getAllMovies()
-		.then(data => {
-			res.json({
-				success: true,
-				message: "Got all movies successfully",
-				data: data
-			})
-		})
-		.catch(err => {
-			console.log(err)
-			res.status(400).json({
-				success: false,
-				message: err
-			})
-		})
-}
+async function getMovies(req, res){
+	const {name, categoryName} = req.query;
+	//Get every movie from DB
+	let results = await MovieModel.getAllMovies();
 
-const getMovieWithName = (req, res) => {
-	MovieModel.find({name: req.params.name})
-		.populate("category")
-		.then(data => {
-			res.json({
-				success: true,
-				data: data
-			})
-		})
-		.catch(err => {
-			console.log(err)
-			res.json({
-				success: false,
-				message: err
-			})
-		})
-}
-
-const getMoviesWithCategory = (req, res) => {
-	var { category } = CategoryModel.find({
-		name: req.params.categoryName
+	//Filter away based on filters
+	if(name){
+		const foundMovie = await getMovieWithName(name)
+		results = results.filter(movie => movie.name == foundMovie.name)
+	}
+	if(categoryName){
+		let movies = await getMoviesWithCategory(categoryName)
+		movies = movies.map(movie => movie.name)
+		results = results.filter(movie => movies.includes(movie.name))
+	}
+	res.status(200).json({
+		success: true,
+		data: results
 	})
-	MovieModel
-		.find({
-			categories: category
-		})
-		.then(data => {
-			res.json({
-				success: true,
-				data: data
-			})
-		})
-		.catch(err => {
-			console.log(err)
-			res.status(404).json({
-				success: false,
-				message: "Could not get mvoie"
-			})
-		})
+}
+
+
+
+async function getMovieWithName(name) {
+	var movie = MovieModel.findOne({name: name})
+		.populate("categories")
+	return movie
+}
+
+async function getMoviesWithCategory(categoryName){
+	var category = await CategoryModel.findOne({name: categoryName})
+	console.log(category)
+	return MovieModel.find({ categories: category }).populate('categories')
 }
 
 const postMovie = (req, res) => {

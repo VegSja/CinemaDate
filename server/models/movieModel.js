@@ -26,7 +26,7 @@ var movieSchema = mongoose.Schema({
 	}]	
 });
 
-movieSchema.statics.getAllMovies = function() {
+movieSchema.statics.getAllMovies = async function() {
 	return new Promise((resolve, reject) => {
 		this.find()
 			.populate("categories") //Fill in the info for the model registered as "category"
@@ -35,7 +35,7 @@ movieSchema.statics.getAllMovies = function() {
 			})
 			.catch(err => {
 				console.log(err)
-				return reject(err)
+				reject(err)
 			})
 	})
 }
