@@ -1,0 +1,46 @@
+$primary-background-color: #022C43
+$floating-color: #115173
+$text-color-default: #F4F3EE
+$text-color-damped: #C4C4C4
+$accent-color: #FDE74C
+$color-good: #6BAA75
+$color-bad: #F05D5E
+
+body
+  background-color: $primary-background-color
+  color: $text-color-default
+  margin: 0
+
+.navbar
+  height: 100vh
+  width: 5vw
+  top:0
+  float: left
+  display: inline-block
+
+.page-content
+  display: inline-block
+  padding: 1em
+
+//Icons
+svg
+  width: inherit
+  height: inherit
+
+.icon
+  fill: $text-color-default
+
+.navbar-entry
+  width: 80%
+  margin: 0 auto
+  margin-top: 2vh
+  margin-bottom: 2vh
+  display: block
+  text-align: center
+
+.floating 
+  background-color: $floating-color
+  box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 2px
+
+.icon-active 
+  fill: $accent-color

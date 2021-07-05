@@ -1,0 +1,47 @@
+body {
+  background-color: #022C43;
+  color: #F4F3EE;
+  margin: 0;
+}
+
+.navbar {
+  height: 100vh;
+  width: 5vw;
+  top: 0;
+  float: left;
+  display: inline-block;
+}
+
+.page-content {
+  display: inline-block;
+  padding: 1em;
+}
+
+svg {
+  width: inherit;
+  height: inherit;
+}
+
+.icon {
+  fill: #F4F3EE;
+}
+
+.navbar-entry {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  display: block;
+  text-align: center;
+}
+
+.floating {
+  background-color: #115173;
+  box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 2px;
+}
+
+.icon-active {
+  fill: #FDE74C;
+}
+
+/*# sourceMappingURL=style.css.map */
