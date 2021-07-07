@@ -1,18 +1,26 @@
 import React from "react"
-import { NavLink } from "react-router-dom"
 
 import Navbarlink from "./navbar-link"
+
+import { ReactComponent as HomeIcon } from "../static/icons/home_black_24dp.svg"
+import { ReactComponent as LikeIcon } from "../static/icons/thumb_up_black_24dp.svg"
+import { ReactComponent as FriendsIcon } from "../static/icons/group_black_24dp.svg"
 
 export default function Navbar(){
 	return(
 		<div className="floating navbar">
 			<nav>
-				<NavLink to="/">
-					<Navbarlink to="/"/>
-				</NavLink>
-				<NavLink to="/about">
-					<Navbarlink to="/about"/>
-				</NavLink>
+				<ul className="navbar-nav">
+					<Navbarlink to="/home">
+						<HomeIcon />
+					</Navbarlink>
+					<Navbarlink to="/liked">
+						<LikeIcon />
+					</Navbarlink>
+					<Navbarlink to="/friends">
+						<FriendsIcon />
+					</Navbarlink>
+				</ul>
 			</nav>
 		</div>
 	)

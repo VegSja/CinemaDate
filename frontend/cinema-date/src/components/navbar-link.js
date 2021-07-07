@@ -1,16 +1,28 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom'
-
-import { ReactComponent as HomeIcon } from "../static/icons/home_black_24dp.svg"
+import { NavLink,useLocation } from 'react-router-dom'
 
 export default function Navbarlink(props){
 	var location = useLocation();
+	console.log(location)
 	var isActive = location.pathname === props.to
-	var className = isActive ? 'icon-active' : 'icon';
+	if(isActive){
+		return <ActiveNavbarLink props={props}/>
+	}	
+	return <DefaultNavbarLink props={props}/>
+};
 
+function ActiveNavbarLink(props){
 	return(
-		<div className="navbar-entry">
-			<HomeIcon className={className}/>
-		</div>
-	)
+		<NavLink className='navbar-entry icon-active' to={props.props.to}>
+			{props.props.children}
+		</NavLink>
+	);
+}
+
+function DefaultNavbarLink(props){
+	return(
+		<NavLink className='navbar-entry' to={props.props.to}>
+			{props.props.children}
+		</NavLink>
+	);
 }
