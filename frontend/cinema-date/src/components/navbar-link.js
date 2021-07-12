@@ -14,7 +14,10 @@ export default function Navbarlink(props){
 function ActiveNavbarLink(props){
 	return(
 		<NavLink className='navbar-entry icon-active' to={props.props.to}>
-			{props.props.children}
+			<div className="svg-container">
+				{props.props.children}
+			</div>
+			<p className="navbarlink-text">{props.props.text}</p>
 		</NavLink>
 	);
 }
@@ -22,7 +25,10 @@ function ActiveNavbarLink(props){
 function DefaultNavbarLink(props){
 	return(
 		<NavLink className='navbar-entry' to={props.props.to}>
-			{props.props.children}
+			<div className="svg-container">
+				{props.props.children}
+			</div>
+			<p className="navbarlink-text">{props.props.text}</p>
 		</NavLink>
 	);
 }

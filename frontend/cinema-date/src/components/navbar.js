@@ -11,13 +11,13 @@ export default function Navbar(){
 		<div className="floating navbar">
 			<nav>
 				<ul className="navbar-nav">
-					<Navbarlink to="/home">
+					<Navbarlink to="/home" text="Home">
 						<HomeIcon />
 					</Navbarlink>
-					<Navbarlink to="/liked">
+					<Navbarlink to="/liked" text="Liked">
 						<LikeIcon />
 					</Navbarlink>
-					<Navbarlink to="/friends">
+					<Navbarlink to="/friends" text="Friends">
 						<FriendsIcon />
 					</Navbarlink>
 				</ul>

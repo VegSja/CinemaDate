@@ -1,0 +1,29 @@
+.button-container
+  --main-border-radius: 0.5vw
+  display: flex
+  width: 7vw
+  height: 7vw
+  justify-content: center
+  align-items: center
+  border-radius: 50%
+  transition: transform 200ms ease
+  margin: 2vw
+  margin-top: 5vw
+
+.like
+  margin-left: auto
+  --accent: #FDE74C
+  box-shadow: 0 0 0 var(--main-border-radius) var(--accent)
+  fill: var(--accent)
+
+.dislike
+  --accent: #F05D5e
+  margin-right: auto
+  box-shadow: 0 0 0 var(--main-border-radius) var(--accent)
+  fill: var(--accent)
+
+#active
+  transition: transform 500ms ease
+  transform: scale(1.2)
+  background: var(--accent)
+  fill: #022c43 
