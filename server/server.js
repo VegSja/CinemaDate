@@ -1,40 +1,24 @@
 const express = require('express')
 
-const jwt = require("express-jwt")
-const jwksRsa = require('jwks-rsa')
-
 const moviesRouter = require('./routes/movies')
 const categoryRouter = require('./routes/category')
+const authRouter = require('./routes/auth')
 const mongoose = require('mongoose')
-
+const cors = require('cors')
 //App variables 
 const app = express()
 
 
 
 // App config
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
-const checkJwt = jwt({
-	secret: jwksRsa.expressJwtSecret({
-		cache: true,
-		rateLimit: true,
-		jwksRequestsPerMinute: 5,
-   	jwksUri: `https://dev-9vyrhkrr.auth0.com/.well-known/jwks.json`
-	}),
-
-	//Validate audience and the issuer
-	audience: 'https://cinemapal-api',
-	issuer: `https://dev-9vyrhkrr.auth0.com/`,
-	algorithms: ['RS256']
-})
-
-app.use(checkJwt)
 
 app.use('/api/movies', moviesRouter)
 app.use('/api/categories', categoryRouter)
-
+app.use('/api/auth', authRouter)
 
 
 //Connect to mongoose
