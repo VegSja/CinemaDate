@@ -22,10 +22,11 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
+//Ordering of middleware is important. Dont need to validate token on auth
+app.use('/api/auth', authRouter)
 app.use(authenticateToken)
 app.use('/api/movies', moviesRouter)
 app.use('/api/categories', categoryRouter)
-app.use('/api/auth', authRouter)
 
 
 //Connect to mongoose
