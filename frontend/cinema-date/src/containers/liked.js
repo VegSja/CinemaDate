@@ -8,9 +8,7 @@ const axios = require('axios')
 const { REACT_APP_API_URL } = process.env
 
 const getMovies = async() => {
-	const res = await axios.get(REACT_APP_API_URL + "/movies", {
-		withCredentials: true
-	})
+	const res = await axios.get(REACT_APP_API_URL + "/movies")
 		.then((res) => {
 			console.log(res)
 		})

@@ -8,13 +8,7 @@ export default function LogoutButton() {
 	const { logout } = useAuth0();
 	
 	const onLogout = async() => {
-		const res = await axios.post(REACT_APP_API_URL + "/auth/logout")
-			.then((res) => {
-				console.log(res)
-			})
-			.catch(err => {
-				console.log(err)
-			})
+		localStorage.removeItem("access_token")
 	}
 
 	return( 
