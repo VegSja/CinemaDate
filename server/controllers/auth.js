@@ -1,21 +1,25 @@
 const { OAuth2Client } = require('google-auth-library')
-require('dotenv').config()
 const axios = require("axios")
 const client = new OAuth2Client(process.env.CLIENT_ID)
 
 const UserModel = require('../models/userModel')
+const jwt = require('jsonwebtoken')
 
-const addUserToDatabase = (res, data) => {
+const generateAccessToken = (username) => {
+	return jwt.sign(username, process.env.SECRET, {})
+}
+
+const addUserToDatabase = (res, req, data) => {
+	var loggedInUser = null
 	var existingUser = UserModel.findOne({email: data.email})
 		.then(doc => {
 			if(doc !== null){
-				console.log("Found user in database", doc)
 				res.status(201).json({
 					success: true,
 					message: "User already exist in database",
-					data: doc
+					data: doc,
+					accessToken: generateAccessToken(data.name)
 				})
-				return
 			}else{
 				var user = new UserModel({
 					name: data.name,
@@ -23,31 +27,31 @@ const addUserToDatabase = (res, data) => {
 				})
 				user.save()
 					.then(doc => {
-						console.log("Successfully saved user: ", user)
 						res.status(201).json({
 							success: true,
-							data: doc
+							data: doc,
+							accessToken: generateAccessToken(data.name)
 						})
 					})
 					.catch(err => {
 						console.log(err)
 						throw(err)
 					})
-				}
+			}
+			console.log(req.session)
 		})
 		.catch(err => {
 			throw(err)
-		})
-	
+		})	
 }
 
-const checkAxiosIdToken = async (response, token) => {
+const checkAxiosIdToken = async (response, req, token) => {
 	const rep = await axios.post("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + token, {
 		'Content-Type': 'text/json'
 	})
 		.then((res) => {
 
-			addUserToDatabase(response, res.data)
+			addUserToDatabase(response, req, res.data)
 		})
 		.catch((e) => {
 			console.log(e)
@@ -74,7 +78,7 @@ const postGoogleLogin = async (req, res) => {
 	catch(e){
 		//TODO: CHANGE THIS AT A LATER DATE
 		try{
-			checkAxiosIdToken(res, token)
+			await checkAxiosIdToken(res, req, token)
 		}catch(error){
 			console.log(error)
 			res.status(400).json({
@@ -84,9 +88,17 @@ const postGoogleLogin = async (req, res) => {
 		}
 	}
 	
-	
+}
+
+const postLogout = async(req, res) => {
+	await req.session.destroy()
+	res.status(200).json({
+		success: true,
+		message: "Logged out successfully"
+	})
 }
 
 module.exports = {
-	postGoogleLogin
+	postGoogleLogin,
+	postLogout
 }

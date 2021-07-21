@@ -3,6 +3,7 @@ const MovieModel = require('../models/movieModel')
 const CategoryModel = require('../models/categoryModel');
 
 async function getMovies(req, res){
+	console.log("Recieved getcall from", req)
 	const {name, categoryName} = req.query;
 	//Get every movie from DB
 	let results = await MovieModel.getAllMovies();
