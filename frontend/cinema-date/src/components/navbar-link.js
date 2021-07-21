@@ -3,7 +3,6 @@ import { NavLink,useLocation } from 'react-router-dom'
 
 export default function Navbarlink(props){
 	var location = useLocation();
-	console.log(location)
 	var isActive = location.pathname === props.to
 	if(isActive){
 		return <ActiveNavbarLink props={props}/>
@@ -17,7 +16,6 @@ function ActiveNavbarLink(props){
 			<div className="svg-container">
 				{props.props.children}
 			</div>
-			<p className="navbarlink-text">{props.props.text}</p>
 		</NavLink>
 	);
 }
@@ -28,7 +26,6 @@ function DefaultNavbarLink(props){
 			<div className="svg-container">
 				{props.props.children}
 			</div>
-			<p className="navbarlink-text">{props.props.text}</p>
 		</NavLink>
 	);
 }

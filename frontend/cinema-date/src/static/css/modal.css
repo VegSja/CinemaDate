@@ -1,0 +1,29 @@
+.hidden {
+  display: none;
+}
+
+.modal {
+  padding: 1vw;
+  position: fixed;
+  border-radius: 0.2vw;
+  width: 60vw;
+  height: 60vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal:hover .page-content {
+  pointer-events: none;
+}
+
+.close-button {
+  position: absolute;
+  top: 3%;
+  right: 1%;
+  height: 10%;
+  width: 10%;
+  fill: #F05D5E;
+}
+
+/*# sourceMappingURL=modal.css.map */

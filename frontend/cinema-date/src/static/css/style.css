@@ -63,30 +63,6 @@ img {
   display: block;
 }
 
-.navbar-entry {
-  margin-top: 2vh;
-  width: 5vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  fill: #C4C4C4;
-  color: #C4C4C4;
-  transition: fill 100ms ease;
-}
-
-.navbarlink-text {
-  display: none;
-  fill: inherit;
-  margin: 1vw;
-  font-size: 2vw;
-}
-
-.navbar-entry:hover {
-  fill: #F4F3EE;
-  color: #F4F3EE;
-}
-
 .floating {
   background-color: #115173;
   box-shadow: 0.2vw 0.2vw 0.2vw 0rem #00000040;
@@ -118,37 +94,6 @@ img {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-}
-
-.svg-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 5vw;
-}
-
-.navbar {
-  position: fixed;
-  height: 100vh;
-  width: 5vw;
-  transition: width 500ms ease;
-}
-
-.navbar:hover {
-  width: 25vw;
-}
-
-.navbar:hover .navbarlink-text {
-  display: block;
-}
-
-.navbar-nav {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .poster-container {

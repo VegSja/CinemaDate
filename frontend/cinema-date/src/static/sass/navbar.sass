@@ -1,0 +1,64 @@
+$primary-background-color: #022C43
+$floating-color: #115173
+$text-color-default: #F4F3EE
+$text-color-damped: #C4C4C4
+$accent-color: #FDE74C
+$color-good: #6BAA75
+$color-bad: #F05D5E
+
+.navbar-entry
+  margin-top: 2vh
+  height: 5vh
+  width: 25vw
+  display: flex
+  justify-content: center
+  align-items: center
+
+  text-decoration: none
+  fill: $text-color-damped
+  color: $text-color-damped
+  transition: fill 100ms ease
+
+.navbarlink-text
+  display: none
+  fill: inherit
+  margin-left: 1vw
+  font-size: 2vw
+
+.navbar-entry:hover
+  fill: $text-color-default
+  color: $text-color-default
+
+.svg-container
+  display: flex
+  align-items: center
+  justify-content: center
+  min-width: 5vw
+
+.navbar
+  position: fixed
+  height: 100vh
+  width: 5vw
+  transition: width 500ms ease
+
+.navbar:hover
+  width: 10vw
+
+.navbar:hover .navbarlink-text
+  display: block
+
+
+.navbar-nav
+  list-style: none
+  padding: 0
+  margin: 0
+  display: flex
+  flex-direction: column
+  align-items: center
+
+.navbar-entry:last-child 
+  position: absolute
+  bottom: 2vh
+  fill: $color-bad
+  color: $color-bad
+

@@ -1,0 +1,31 @@
+$primary-background-color: #022C43
+$floating-color: #115173
+$text-color-default: #F4F3EE
+$text-color-damped: #C4C4C4
+$accent-color: #FDE74C
+$color-good: #6BAA75
+$color-bad: #F05D5E
+
+.hidden
+  display: none
+
+.modal
+  padding: 1vw
+  position: fixed
+  border-radius: 0.2vw
+  width: 60vw
+  height: 60vh
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+
+.modal:hover .page-content
+  pointer-events: none
+
+.close-button
+  position: absolute
+  top: 3%
+  right: 1%
+  height: 10%
+  width: 10%
+  fill: $color-bad

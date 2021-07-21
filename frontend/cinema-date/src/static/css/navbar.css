@@ -1,0 +1,64 @@
+.navbar-entry {
+  margin-top: 2vh;
+  height: 5vh;
+  width: 25vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  fill: #C4C4C4;
+  color: #C4C4C4;
+  transition: fill 100ms ease;
+}
+
+.navbarlink-text {
+  display: none;
+  fill: inherit;
+  margin-left: 1vw;
+  font-size: 2vw;
+}
+
+.navbar-entry:hover {
+  fill: #F4F3EE;
+  color: #F4F3EE;
+}
+
+.svg-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 5vw;
+}
+
+.navbar {
+  position: fixed;
+  height: 100vh;
+  width: 5vw;
+  transition: width 500ms ease;
+}
+
+.navbar:hover {
+  width: 10vw;
+}
+
+.navbar:hover .navbarlink-text {
+  display: block;
+}
+
+.navbar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar-entry:last-child {
+  position: absolute;
+  bottom: 2vh;
+  fill: #F05D5E;
+  color: #F05D5E;
+}
+
+/*# sourceMappingURL=navbar.css.map */
