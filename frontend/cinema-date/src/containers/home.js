@@ -1,25 +1,57 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import MovieLiker from "../components/movieLikerComponent"
+import Modal from "../components/modal"
 
-const movie = {
-	title: "Star Wars",
-	poster: "https://static.posters.cz/image/1300/plakater/star-wars-episode-viii-the-last-jedi-one-sheet-i97646.jpg", 
-	categories: ["Action", "Horror", "Love", "Erotic", "SCI-FI"],
-	description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras at justo et elit egestas mattis. Duis sagittis rutrum velit, in sollicitudin lorem eg",
-	year: 2006,
-	runtime: "1h 16min"
-}
+const axios = require('axios')
 
+const { REACT_APP_API_URL } = process.env
 
-export default function HomePage(){
-	const onLike = () => {
-		console.log("User liked ", movie.title)
-	}
+const getMovies = new Promise((resolve, reject) => {
+	console.log(localStorage)
+	const res = axios.get(REACT_APP_API_URL + "/movies")
+		.then((res) => {
+			console.log(res)
+			resolve(res)
+		})
+		.catch(err => {
+			reject(err)
+	})
+})
+
+export default function HomePage() {
+	const [showModal, setShowModal] = useState(false) 
+	const [err, setErr] = useState("")
+	const [currentMovie, setCurrentMovie] = useState()
+	const [movieList, setMovieList] = useState([])
+
 	
+	useEffect(() => {
+		if(movieList.length <= 1){
+			(async () => {
+				await getMovies
+					.then(doc => {
+						setMovieList(doc.data.data)
+					})
+					.catch(err => {
+						setErr(err.message)
+						setShowModal(true)
+					})
+			})()
+		}
+		setCurrentMovie(movieList[0])
+	}, [movieList.length])
+
+	const onLike = () => {
+		setMovieList(movieList.splice(1, movieList.length))
+	}
 	return(
 		<div className="home-container">
 			<h1 className="page-title" />
-			<MovieLiker onLike={onLike} movie={movie}/>
+			<MovieLiker onLike={onLike} movie={currentMovie}/>
+				<Modal show={showModal}>
+					<h1> Encountered an error </h1>
+					<p>{err}</p>
+				</Modal>
 		</div>
 	)
 }

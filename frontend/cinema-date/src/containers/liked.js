@@ -7,36 +7,56 @@ const axios = require('axios')
 
 const { REACT_APP_API_URL } = process.env
 
-const getMovies = async() => {
-	const res = await axios.get(REACT_APP_API_URL + "/movies")
+const getMovies = new Promise((resolve, reject) => {
+	console.log(localStorage)
+	const res = axios.get(REACT_APP_API_URL + "/movies")
 		.then((res) => {
 			console.log(res)
+			resolve(res)
 		})
-		.catch(e => {
-			console.log(e.message)
+		.catch(err => {
+			reject(err)
 		})
+})
+
+const fillMovieData = (movieList) => {
+	let movies = []
+	for(var i = 0; i < movieList.length; i++){
+		movies.push(<PosterComponent classes="poster-container-list clickable"  image={movieList[i].image}/>)
+	}
+	return movies
 }
+
+
 
 export default function LikedPage(){
 	const [showModal, setShowModal] = useState(false)
+	const [movies, setMovies] = useState([])
+	const [err, setErr] = useState()
 
 	useEffect(() => {
-		getMovies()
-	})
-
+		(async () => {
+			await getMovies
+				.then(doc => {
+					console.log(doc)
+					setMovies(fillMovieData(doc.data.data))
+				})
+				.catch(err => {
+					setErr(err.message)
+					setShowModal(true)
+				})
+		})()
+	}, [movies.length])
+	
 	return(
 		<div>
 			<h1>Liked</h1>
 			<div className="movie-list-container">
 				<Modal show={showModal}>
-					<h1> Halla! </h1>
+					<h1> Encountered an error </h1>
+					<p>{err}</p>
 				</Modal>
-				<PosterComponent classes="poster-container-list clickable"  image="https://static.posters.cz/image/1300/plakater/star-wars-episode-viii-the-last-jedi-one-sheet-i97646.jpg"/>
-				<PosterComponent classes="poster-container-list clickable"  image="https://static.posters.cz/image/1300/plakater/star-wars-episode-viii-the-last-jedi-one-sheet-i97646.jpg"/>
-				<PosterComponent classes="poster-container-list clickable"  image="https://static.posters.cz/image/1300/plakater/star-wars-episode-viii-the-last-jedi-one-sheet-i97646.jpg"/>
-				<PosterComponent classes="poster-container-list clickable"  image="https://static.posters.cz/image/1300/plakater/star-wars-episode-viii-the-last-jedi-one-sheet-i97646.jpg"/>
-				<PosterComponent classes="poster-container-list clickable"  image="https://static.posters.cz/image/1300/plakater/star-wars-episode-viii-the-last-jedi-one-sheet-i97646.jpg"/>
-				<PosterComponent classes="poster-container-list clickable"  image="https://static.posters.cz/image/1300/plakater/star-wars-episode-viii-the-last-jedi-one-sheet-i97646.jpg"/>
+				{movies}
 			</div>
 		</div>
 	)

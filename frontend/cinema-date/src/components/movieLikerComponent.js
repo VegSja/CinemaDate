@@ -17,13 +17,16 @@ export default function MovieLiker(props){
 		</div>
 	)
 
+	if(!movie){
+		return <p></p>
+	}
 
 	return(
 		<div className="info-container">
-			<PosterComponent image={movie.poster}/>
-			<h1 className="movieTitle">{movie.title}</h1>
+			<PosterComponent image={movie.image}/>
+			<h1 className="movieTitle">{movie.name}</h1>
 			<CategoriesList />
-			<InfoComponent header="Description" text={movie.description}/>
+			<InfoComponent header="Description" text={movie.synopsis}/>
 			<div className="SmallInfo-container">
 				<SmallInfoComponent text={movie.year} />
 				<SmallInfoComponent text={movie.runtime} />
