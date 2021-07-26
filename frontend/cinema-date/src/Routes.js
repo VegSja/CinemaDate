@@ -10,23 +10,29 @@ import Navbar from "./components/navbar"
 export default function Routes() {
 	return(
 		<HashRouter>
-			<Navbar />
-			<div className="page-content">
 				<Switch>
 					<Route exact path="/">
 						<LandingPage />
 					</Route>
 					<Route exact path="/home">
-						<HomePage />
+						<Navbar />
+						<div className="page-content">
+							<HomePage />
+						</div>
 					</Route>
 					<Route exact path="/liked">
-						<LikedPage />
+						<Navbar />
+						<div className="page-content">
+							<LikedPage />
+						</div>
 					</Route>
 					<Route exact path="/friends">
-						<FriendsPage />
+						<Navbar />
+						<div className="page-content">
+							<FriendsPage />
+						</div>
 					</Route>
 				</Switch> 
-			</div>
 		</HashRouter>
 	)
 }

@@ -15,7 +15,6 @@ export default function LoginButton() {
 		})
 			.then((res) => {
 				localStorage.setItem('access_token', res.data.accessToken)
-  			axios.defaults.headers.common['authorization'] = `Bearer `+ localStorage.getItem("access_token")
 				history.push('/home')
 			})
 			.catch((err) => {

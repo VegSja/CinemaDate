@@ -8,8 +8,7 @@ const axios = require('axios')
 const { REACT_APP_API_URL } = process.env
 
 const getMovies = new Promise((resolve, reject) => {
-	console.log(localStorage)
-	const res = axios.get(REACT_APP_API_URL + "/movies")
+	const res = axios.get(REACT_APP_API_URL + "/movies", {withCredentials: true})
 		.then((res) => {
 			console.log(res)
 			resolve(res)

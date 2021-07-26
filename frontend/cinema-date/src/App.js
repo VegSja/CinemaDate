@@ -4,7 +4,7 @@ import axios from "axios"
 
 
 function App() {
-  axios.defaults.headers.common['authorization'] = `Bearer `+ localStorage.getItem("access_token")
+  axios.defaults.withCredentials = true
   return (
     <div>
       <Routes />

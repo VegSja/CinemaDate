@@ -5,7 +5,7 @@ import Navbarlink from "./navbar-link"
 import { ReactComponent as HomeIcon } from "../static/icons/home_black_24dp.svg"
 import { ReactComponent as LikeIcon } from "../static/icons/thumb_up_black_24dp.svg"
 import { ReactComponent as FriendsIcon } from "../static/icons/group_black_24dp.svg"
-import { ReactComponent as LogoutIcon } from "../static/icons/logout_black_24dp.svg"
+import LogoutButton from "../components/logout-button"
 
 import "../static/css/navbar.css"
 
@@ -23,8 +23,8 @@ export default function Navbar(){
 					<Navbarlink to="/friends" text="Friends">
 						<FriendsIcon />
 					</Navbarlink>
-					<Navbarlink to="/logout" text="Logout">
-						<LogoutIcon />
+					<Navbarlink to="/" text="Logout">
+					<LogoutButton />
 					</Navbarlink>
 				</ul>
 			</nav>
