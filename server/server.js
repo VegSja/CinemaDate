@@ -6,6 +6,7 @@ const authRouter = require('./routes/auth')
 
 const authenticateToken = require('./middleware/auth')
 
+const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
 //App variables 
@@ -21,6 +22,7 @@ app.use(cors({
 }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
 
 //Ordering of middleware is important. Dont need to validate token on auth
 app.use('/api/auth', authRouter)

@@ -2,6 +2,8 @@ const puppeteer = require('puppeteer')
 const axios = require('axios');
 const cheerio = require('cheerio');
 
+const MovieModel = require('./models/movieModel')
+
 const root_url = "https://www.justwatch.com";
 const routes_movies = "/no/provider/netflix/movies";
 
@@ -41,7 +43,10 @@ async function scrapeRoutes(
 function parseHTMLMovieData(html){
   const $ = cheerio.load(html);
   const name = $('.title-block').find('h1').text();
-  const year = $('.text-muted').text();
+  const year = $('.text-muted').text().substring(
+      $('.text-muted').text().lastIndexOf("(") + 1,
+      $('.text-muted').text().lastIndexOf(")"),
+  );
   let runtime = "";
   const image = $('.title-poster__image > source').attr("data-srcset").split(', ')[0]
   const synopsis = $('.text-wrap-pre-line > span').text()
@@ -53,8 +58,22 @@ function parseHTMLMovieData(html){
       return false
     }
   })
-  console.log(name, year, runtime);
-  console.log(image);
+  const movie = new MovieModel({
+    name: name,
+    year: year,
+    runtime: runtime,
+    synopsis: synopsis,
+    image: image,
+    categories: []
+  })
+  movie.save()
+    .then(doc => {
+      console.log("Successfully saved: ", name)
+    })
+    .catch(err => {
+      console.log("Error saving", movie)
+      console.log(err)
+    })
 }
 
 async function getMovieData(page, routes){
@@ -70,7 +89,24 @@ async function getMovieData(page, routes){
   }
 }
 
+
+
+
 (async () => {
+  //Connect to mongoose
+  const mongoose = require('mongoose')
+  
+  const dbPath = 'mongodb://localhost/cinemadate';
+  const options = {useNewUrlParser: true, useUnifiedTopology: true}
+  const mongo = mongoose.connect(dbPath, options);
+  
+  mongo
+  	.then(() => {
+  		console.log("Connected to database")
+  	})
+  	.catch(err => {
+  		console.log(err, 'error');
+  	})
   // Set up browser and page.
   const browser = await puppeteer.launch({
     headless: true,

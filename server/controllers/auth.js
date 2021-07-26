@@ -10,10 +10,13 @@ const generateAccessToken = (username) => {
 }
 
 const addUserToDatabase = (res, req, data) => {
-	var loggedInUser = null
 	var existingUser = UserModel.findOne({email: data.email})
 		.then(doc => {
 			if(doc !== null){
+				res.cookie("JWT", generateAccessToken(data.name), {
+					maxAge: 24*60*60, //One day
+					httpOnly: true
+				})
 				res.status(201).json({
 					success: true,
 					message: "User already exist in database",
@@ -38,7 +41,6 @@ const addUserToDatabase = (res, req, data) => {
 						throw(err)
 					})
 			}
-			console.log(req.session)
 		})
 		.catch(err => {
 			throw(err)
@@ -50,7 +52,6 @@ const checkAxiosIdToken = async (response, req, token) => {
 		'Content-Type': 'text/json'
 	})
 		.then((res) => {
-
 			addUserToDatabase(response, req, res.data)
 		})
 		.catch((e) => {
@@ -91,7 +92,7 @@ const postGoogleLogin = async (req, res) => {
 }
 
 const postLogout = async(req, res) => {
-	await req.session.destroy()
+	res.clearCookie('JWT')
 	res.status(200).json({
 		success: true,
 		message: "Logged out successfully"
