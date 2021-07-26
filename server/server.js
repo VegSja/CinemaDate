@@ -3,6 +3,7 @@ const express = require('express')
 const moviesRouter = require('./routes/movies')
 const categoryRouter = require('./routes/category')
 const authRouter = require('./routes/auth')
+const userRouter = require('./routes/user')
 
 const authenticateToken = require('./middleware/auth')
 
@@ -29,7 +30,7 @@ app.use('/api/auth', authRouter)
 app.use(authenticateToken)
 app.use('/api/movies', moviesRouter)
 app.use('/api/categories', categoryRouter)
-
+app.use('/api/user/', userRouter)
 
 //Connect to mongoose
 const dbPath = 'mongodb://localhost/cinemadate';

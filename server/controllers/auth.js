@@ -13,15 +13,14 @@ const addUserToDatabase = (res, req, data) => {
 	var existingUser = UserModel.findOne({email: data.email})
 		.then(doc => {
 			if(doc !== null){
-				res.cookie("JWT", generateAccessToken(data.name), {
+				res.cookie("JWT", generateAccessToken(doc.email), {
 					maxAge: 24*60*60, //One day
 					httpOnly: true
 				})
 				res.status(201).json({
 					success: true,
 					message: "User already exist in database",
-					data: doc,
-					accessToken: generateAccessToken(data.name)
+					data: doc
 				})
 			}else{
 				var user = new UserModel({
@@ -33,7 +32,7 @@ const addUserToDatabase = (res, req, data) => {
 						res.status(201).json({
 							success: true,
 							data: doc,
-							accessToken: generateAccessToken(data.name)
+							accessToken: generateAccessToken(doc.email)
 						})
 					})
 					.catch(err => {
