@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, HashRouter } from "react-router-dom"
+import { Route, Switch, HashRouter, withRouter } from "react-router-dom"
 
 import LandingPage from "./containers/landing"
 import HomePage from "./containers/home"
@@ -7,7 +7,7 @@ import FriendsPage from "./containers/friends"
 import LikedPage from "./containers/liked"
 import Navbar from "./components/navbar"
 
-export default function Routes() {
+function Routes() {
 	return(
 		<HashRouter>
 				<Switch>
@@ -36,3 +36,5 @@ export default function Routes() {
 		</HashRouter>
 	)
 }
+
+export default withRouter(Routes)

@@ -7,8 +7,8 @@ const axios = require('axios')
 
 const { REACT_APP_API_URL } = process.env
 
-const getMovies = new Promise((resolve, reject) => {
-	const res = axios.get(REACT_APP_API_URL + "/movies", {withCredentials: true})
+const getMoviesLiked = new Promise((resolve, reject) => {
+	const res = axios.get(REACT_APP_API_URL + "/user/liked/movies", {withCredentials: true})
 		.then((res) => {
 			console.log(res)
 			resolve(res)
@@ -35,7 +35,7 @@ export default function LikedPage(){
 
 	useEffect(() => {
 		(async () => {
-			await getMovies
+			await getMoviesLiked
 				.then(doc => {
 					console.log(doc)
 					setMovies(fillMovieData(doc.data.data))
