@@ -4,7 +4,8 @@
 
 .modal-cover {
   position: fixed;
-  top: 0;
+  top: 0vw;
+  left: 10vw;
   width: 100vw;
   height: 100vh;
 }

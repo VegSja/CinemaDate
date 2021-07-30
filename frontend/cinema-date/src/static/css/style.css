@@ -35,6 +35,10 @@ body::-webkit-scrollbar-thumb {
   flex-direction: column;
 }
 
+.page-header {
+  font-size: 2vw;
+}
+
 .info-header {
   margin: 0;
   margin-bottom: 1.5rem;

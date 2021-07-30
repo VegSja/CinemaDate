@@ -46,7 +46,7 @@ export default function LikedPage(){
 	return(
 		<div>
 		<div className={showModal ? "unfocused" : ""}>
-			<h1>Liked</h1>
+			<h1 className="page-header">Your Likes</h1>
 			<div className="movie-list-container">
 				{movies}
 			</div>

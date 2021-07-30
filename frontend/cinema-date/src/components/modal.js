@@ -3,7 +3,7 @@ import "../static/css/modal.css"
 
 import {ReactComponent as CloseIcon} from "../static/icons/close_black_24dp.svg"
 export default function Modal(props){
-	const className = props.show ? "modal floating dark" : "modal floating hidden"
+	const className = props.show ? "modal floating grey" : "modal floating hidden"
 	
 	//We are buidling a container that darkens the background and disables mouse interaction with background
 	return(
