@@ -1,3 +1,11 @@
+$primary-background-color: #022C43
+$floating-color: #115173
+$text-color-default: #F4F3EE
+$text-color-damped: #C4C4C4
+$accent-color: #FDE74C
+$color-good: #6BAA75
+$color-bad: #F05D5E
+
 .button-container
   --main-border-radius: 0.5vw
   display: flex
@@ -9,6 +17,22 @@
   transition: transform 200ms ease
   margin: 2vw
   margin-top: 5vw
+
+.general-button
+  display: flex
+  text-align: center
+  justify-items: end
+  align-items: center
+  padding: 2vw
+  background-color: $accent-color
+  border-radius: 0.5vw
+  width: 15vw
+  height: 2.5vw
+  color: $primary-background-color
+
+.button-text
+  margin: auto
+  font-size: 1.8vw
 
 .like
   margin-left: auto

@@ -7,17 +7,6 @@ const axios = require('axios')
 
 const { REACT_APP_API_URL } = process.env
 
-const getMoviesLiked = new Promise((resolve, reject) => {
-	const res = axios.get(REACT_APP_API_URL + "/user/liked/movies", {withCredentials: true})
-		.then((res) => {
-			console.log(res)
-			resolve(res)
-		})
-		.catch(err => {
-			reject(err)
-		})
-})
-
 const fillMovieData = (movieList) => {
 	let movies = []
 	for(var i = 0; i < movieList.length; i++){
@@ -34,17 +23,16 @@ export default function LikedPage(){
 	const [err, setErr] = useState()
 
 	useEffect(() => {
-		(async () => {
-			await getMoviesLiked
-				.then(doc => {
-					console.log(doc)
-					setMovies(fillMovieData(doc.data.data))
-				})
-				.catch(err => {
-					setErr(err.message)
-					setShowModal(true)
-				})
-		})()
+		const res = axios.get(REACT_APP_API_URL + "/user/liked/movies", {withCredentials: true})
+			.then((res) => {
+				console.log("Setting moviedata")
+				if(movies !== res.data.data){
+					setMovies(fillMovieData(res.data.data))
+				}
+			})
+			.catch(err => {
+				console.log(err)
+			})
 	}, [movies.length])
 	
 	return(

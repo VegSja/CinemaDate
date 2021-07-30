@@ -1,10 +1,11 @@
 import React from "react"
 import { GoogleLogin } from "react-google-login"
 import { useHistory } from "react-router-dom"
+import GeneralButton from "./general_button"
 
 const axios = require('axios')
 
-export default function LoginButton() {
+export default function LoginButton(props) {
 	let history = useHistory()
 	const { REACT_APP_GOOGLE_CLIENT_ID, REACT_APP_API_URL } = process.env
 
@@ -28,6 +29,9 @@ export default function LoginButton() {
 	return(
 		<GoogleLogin 
 			clientId={REACT_APP_GOOGLE_CLIENT_ID}
+			render={renderProps => (
+				<GeneralButton onClick={renderProps.onClick} text="Start your journey" className={props.className}/>	
+			)}
 			buttonText="Log in with Google"
 			onSuccess={onSuccess}
 			onFailure={onFailure}

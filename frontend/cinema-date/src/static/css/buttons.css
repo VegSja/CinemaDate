@@ -11,6 +11,24 @@
   margin-top: 5vw;
 }
 
+.general-button {
+  display: flex;
+  text-align: center;
+  justify-items: end;
+  align-items: center;
+  padding: 2vw;
+  background-color: #FDE74C;
+  border-radius: 0.5vw;
+  width: 15vw;
+  height: 2.5vw;
+  color: #022C43;
+}
+
+.button-text {
+  margin: auto;
+  font-size: 1.8vw;
+}
+
 .like {
   margin-left: auto;
   --accent: #FDE74C;

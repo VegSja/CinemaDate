@@ -7,54 +7,40 @@ const axios = require('axios')
 const { REACT_APP_API_URL } = process.env
 
 const getMovies = new Promise((resolve, reject) => {
-	const res = axios.get(REACT_APP_API_URL + "/user/unrated/movies", {
-		withCredentials: true
-	})
-		.then((res) => {
-			console.log(res)
-			resolve(res)
-		})
-		.catch(err => {
-			reject(err)
-	})
 })
 
 export default function HomePage() {
 	const [showModal, setShowModal] = useState(false) 
 	const [err, setErr] = useState("")
 	const [currentMovie, setCurrentMovie] = useState()
-	const [movieList, setMovieList] = useState([])
 	
 	useEffect(() => {
-		if(movieList.length <= 1){
-			(async () => {
-				await getMovies
-					.then(doc => {
-						setMovieList(doc.data.data)
-					})
-					.catch(err => {
-						setErr(err.message)
-						setShowModal(true)
-					})
-			})()
-		}
-		setCurrentMovie(movieList[0])
-	}, [movieList.length])
+		
+		const res = axios.get(REACT_APP_API_URL + "/user/unrated/movies", {
+			withCredentials: true
+		})
+			.then((res) => {
+				setCurrentMovie(res.data.data[0])
+			})
+			.catch(err => {
+				setErr(err)
+				setShowModal(true)
+		})
+	}, currentMovie)
 
 	const onLike = () => {
-		console.log("Liked: ", currentMovie._id)
 		axios.post(REACT_APP_API_URL + "/user/liked/movies", {
 			movieId : currentMovie._id
 		})
 			.then(res => {
 				console.log("Successfully sent like to server")
-				setMovieList(movieList.splice(1, movieList.length))
+				setCurrentMovie()
 			})
 			.catch(err => {
 				console.log(err)
 			})
 	}
-	if(movieList.length === 0){
+	if(!currentMovie){
 		return emptyList()
 	}
 	return(
