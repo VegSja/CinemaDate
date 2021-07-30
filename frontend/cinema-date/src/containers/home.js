@@ -1,34 +1,37 @@
 import React, { useState, useEffect } from "react";
 import MovieLiker from "../components/movieLikerComponent"
 import Modal from "../components/modal"
+import "../static/css/animations/animations.css"
 
 const axios = require('axios')
 
 const { REACT_APP_API_URL } = process.env
 
-const getMovies = new Promise((resolve, reject) => {
-})
 
 export default function HomePage() {
-	const [showModal, setShowModal] = useState(false) 
-	const [err, setErr] = useState("")
+	const [err, setErr] = useState()
 	const [currentMovie, setCurrentMovie] = useState()
-	
+	const [isLiked, setIsLiked] = useState() 
+
 	useEffect(() => {
-		
+		console.log("Sending request for new movie")	
 		const res = axios.get(REACT_APP_API_URL + "/user/unrated/movies", {
 			withCredentials: true
 		})
 			.then((res) => {
+				if(res.data.data.length === 0){
+					setErr("You have rated every movie!")
+				}
 				setCurrentMovie(res.data.data[0])
+				setIsLiked(false)
 			})
 			.catch(err => {
-				setErr(err)
-				setShowModal(true)
+				setErr(err.toString())
 		})
 	}, currentMovie)
 
 	const onLike = () => {
+		setIsLiked(true)
 		axios.post(REACT_APP_API_URL + "/user/liked/movies", {
 			movieId : currentMovie._id
 		})
@@ -40,15 +43,14 @@ export default function HomePage() {
 				console.log(err)
 			})
 	}
-	if(!currentMovie){
-		return emptyList()
-	}
+
+
 	return(
-		<div className="home-container">
-			<MovieLiker onLike={onLike} movie={currentMovie}/>
-				<Modal show={showModal}>
+		<div className="home-container grid-center">
+			<MovieLiker className={isLiked ? "float_out" : ""} onLike={onLike} movie={currentMovie}/>
+			<Modal show={err} onClose={() => setErr()}>
 					<h1> Encountered an error </h1>
-					<p>{err}</p>
+					{err}
 				</Modal>
 		</div>
 	)

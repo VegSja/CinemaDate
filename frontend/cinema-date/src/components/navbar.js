@@ -11,7 +11,7 @@ import "../static/css/navbar.css"
 
 export default function Navbar(){
 	return(
-		<div className="floating navbar">
+		<div className="floating grey navbar">
 			<nav>
 				<ul className="navbar-nav">
 					<Navbarlink to="/home" text="Home">

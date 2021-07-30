@@ -1,0 +1,38 @@
+@keyframes appear{
+	from {opacity: 0;}
+	to {opacity: 1;}
+}
+
+@keyframes float_in{
+	from{
+		opacity: 0;
+		margin-top: 100%;
+	}
+	to{
+		opacity: 1;
+	}
+}
+
+@keyframes float_out{
+	from{
+		opacity: 1;
+	}
+	to{
+		opacity: 0;
+	}
+}
+
+.appear{
+	animation-name: appear;
+	animation-duration: 0.3s;
+}
+
+.float_in{
+	animation-name: float_in;
+	animation-duration: 0.5s;
+}
+
+.float_out{
+	animation-name: float_out;
+	animation-duration: 1s;
+}

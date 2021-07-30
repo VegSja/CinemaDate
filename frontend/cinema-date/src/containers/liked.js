@@ -1,26 +1,33 @@
 import React, {useState, useEffect} from "react"
 
-import PosterComponent from "../components/poster"
+import MovieListEntry from "../components/movieListEntry"
 import Modal from "../components/modal"
+import MovieInfoComponent from "../components/movieInfoComponent"
+import "../static/css/animations/animations.css"
 
 const axios = require('axios')
 
 const { REACT_APP_API_URL } = process.env
 
-const fillMovieData = (movieList) => {
-	let movies = []
-	for(var i = 0; i < movieList.length; i++){
-		movies.push(<PosterComponent classes="poster-container-list clickable"  image={movieList[i].image}/>)
-	}
-	return movies
-}
-
-
 
 export default function LikedPage(){
 	const [showModal, setShowModal] = useState(false)
 	const [movies, setMovies] = useState([])
-	const [err, setErr] = useState()
+	const [modalContent, setModalContent] = useState()
+
+	const onEntryClicked = (movie) => {
+		setModalContent(<MovieInfoComponent movie={movie}/>)
+		setShowModal(true)
+	}
+
+	const fillMovieData = (movieList) => {
+		let movies = []
+		for(var i = 0; i < movieList.length; i++){
+			movies.push(<MovieListEntry movie={movieList[i]} onClick={onEntryClicked}/>)
+		}
+		return movies
+	}
+
 
 	useEffect(() => {
 		const res = axios.get(REACT_APP_API_URL + "/user/liked/movies", {withCredentials: true})
@@ -31,20 +38,23 @@ export default function LikedPage(){
 				}
 			})
 			.catch(err => {
-				console.log(err)
+				setShowModal(true)
+				setModalContent(<p>Error {err}</p>)
 			})
 	}, [movies.length])
 	
 	return(
 		<div>
+		<div className={showModal ? "unfocused" : ""}>
 			<h1>Liked</h1>
 			<div className="movie-list-container">
-				<Modal show={showModal}>
-					<h1> Encountered an error </h1>
-					<p>{err}</p>
-				</Modal>
 				{movies}
 			</div>
 		</div>
+			<Modal show={showModal} onClose={() => setShowModal(false)}>
+				{modalContent}				
+			</Modal>
+		</div>
 	)
 }
+

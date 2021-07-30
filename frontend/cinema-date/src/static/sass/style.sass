@@ -44,6 +44,7 @@ body::-webkit-scrollbar-thumb
 
 .movieTitle
   font-size: 3vw
+  max-width: 30vw
   margin: 0
 
 .damped-text
@@ -71,6 +72,11 @@ img
 .floating 
   box-shadow: 0.2vw 0.2vw 0.2vw 0rem #00000040
 
+.grey
+  background-color: $floating-color
+
+.dark
+  background-color: $primary-background-color
 
 .icon-active 
   fill: $accent-color
@@ -80,22 +86,34 @@ img
 .info-container
   display: grid
   grid-template-areas: "poster title" "poster info-1" "poster description" "poster info-2"
+  grid-area: info
   column-gap: 4rem
   row-gap: 1rem
   justify-items: start
   align-items: center
-  width: 80vw
-  height: 60vh
+
+.movie-liker-container
+  display: grid
+  grid-template-areas: "info info" "like dislike"
+  column-gap: 4rem
+  row-gap: 1rem
+  justify-items: start
+  align-items: center
 
 .movie-list-container
   display: grid
   grid-template-columns: repeat(4, 1fr)
   grid-gap: 3vw
+  margin-bottom: 5vw
 
 .SmallInfo-container
   display: flex
   flex-direction: row
   align-items: flex-start
+
+.unfocused
+  filter: blur(20px) saturate(0)
+  transition: filter 100ms ease
 
 //Components
 
