@@ -14,7 +14,7 @@ const addUserToDatabase = (res, req, data) => {
 		.then(doc => {
 			if(doc !== null){
 				res.cookie("JWT", generateAccessToken(doc.email), {
-					maxAge: 24*60*60, //One day
+					maxAge: 100000000, //One day
 					httpOnly: true
 				})
 				res.status(201).json({
