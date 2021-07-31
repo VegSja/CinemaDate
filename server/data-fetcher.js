@@ -176,10 +176,10 @@ const saveDataToDatabase = async(filteredMovieList) => {
   console.log("Number of movies gotten: ", movieData.length)
   const filteredMovieData =  await filterDataFromList(movieData)
 
-  console.log(filteredMovieData)
   console.log("Filtered data: ", filteredMovieData.length)
 
-  //await saveDataToDatabase(movieData)
+  console.log("SAVING --------------------------------------------------------------------------------------")
+  await saveDataToDatabase(filteredMovieData)
 
   //// Set up browser and page.
   //const browser = await puppeteer.launch({
