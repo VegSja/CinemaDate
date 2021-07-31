@@ -101,6 +101,29 @@ const getDataFromAPI = async() => {
   return movieResponses
 }
 
+const filterDataFromList = async(unfiltered) => {
+  const filtered = unfiltered
+  for(var i = filtered.length-1; i>0; i--){
+    const res = await axios.get(`https://api.themoviedb.org/3/movie/${filtered[i].id}/watch/providers`, {
+      headers: {
+        "Authorization": `Bearer ${accessToken}`,
+        "Content-Type": "application/json;charset=utf-8"
+      }
+    })
+    try{
+      const no_providers = res.data.results["NO"]["flatrate"].map(prov => prov.provider_name)
+      if(!no_providers.includes('Netflix')){
+        console.log("Removing", filtered[i].title, "With providers: ", no_providers)
+        filtered.splice(i, 1) 
+      }
+    } catch(e){
+      console.log("Could not find data for. Removing", filtered[i].title)
+      filtered.splice(i, 1) 
+    }
+  }
+  return filtered
+}
+
 const saveDataToDatabase = async(filteredMovieList) => {
   for(let i=0; i<filteredMovieList.length; i++){
     const movie = filteredMovieList[i]
@@ -151,8 +174,12 @@ const saveDataToDatabase = async(filteredMovieList) => {
   
   const movieData = await getDataFromAPI()
   console.log("Number of movies gotten: ", movieData.length)
-  
-  await saveDataToDatabase(movieData)
+  const filteredMovieData =  await filterDataFromList(movieData)
+
+  console.log(filteredMovieData)
+  console.log("Filtered data: ", filteredMovieData.length)
+
+  //await saveDataToDatabase(movieData)
 
   //// Set up browser and page.
   //const browser = await puppeteer.launch({
