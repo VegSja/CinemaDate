@@ -24,7 +24,7 @@ export default function Navbar(){
 						<FriendsIcon />
 					</Navbarlink>
 					<Navbarlink to="/" text="Logout">
-					<LogoutButton />
+						<LogoutButton />
 					</Navbarlink>
 				</ul>
 			</nav>

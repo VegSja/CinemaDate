@@ -39,7 +39,11 @@ export default function LikedPage(){
 			})
 			.catch(err => {
 				setShowModal(true)
-				setModalContent(<p>Error {err}</p>)
+				setModalContent(
+				<div>
+					<h1>Error</h1>
+					<p>{err.toString()}</p>
+				</div>)
 			})
 	}, [movies.length])
 	
