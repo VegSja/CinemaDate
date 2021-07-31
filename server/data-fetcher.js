@@ -5,92 +5,15 @@ const MovieModel = require('./models/movieModel')
 require('dotenv').config()
 
 const accessToken = process.env.API_TOKEN
+const API_URL = process.env.API_URL
+const API_IMAGE_URL = process.env.API_IMAGE_URL
+const DATABASE_URL = process.env.DATABASE_URL
 
-//function extractItems() {
-//	const titleList = document.querySelectorAll('.title-list-grid__item--link');
-//  let routes = [];
-//  for(i=0; i < titleList.length; i++){
-//    routes.push(titleList[i].getAttribute("href"));
-//  }
-//
-//  return routes;
-//}
-//
-//async function scrapeRoutes(
-//  page,
-//  extractItems,
-//  itemTargetCount,
-//  scrollDelay = 1000,
-//) {
-//  console.log("Scraping routes");
-//  let items = [];
-//  try {
-//    let previousHeight;
-//    while (items.length < itemTargetCount) {
-//      items = await page.evaluate(extractItems);
-//      previousHeight = await page.evaluate('document.body.scrollHeight');
-//      await page.evaluate('window.scrollTo(0, document.body.scrollHeight)');
-//      await page.waitForFunction(`document.body.scrollHeight > ${previousHeight}`);
-//      await page.waitForTimeout(scrollDelay);
-//    }
-//  } catch(e) { 
-//    console.log(e)
-//  }
-//  return items;
-//}
-//async function parseHTMLMovieData(html){
-//  const $ = cheerio.load(html);
-//    const name = $('.title-block').find('h1').text();
-//    const year = $('.text-muted').text().substring(
-//        $('.text-muted').text().lastIndexOf("(") + 1,
-//        $('.text-muted').text().lastIndexOf(")"),
-//    );
-//    let runtime = "";
-//    const image = $('.title-poster__image > source').attr("data-srcset").split(', ')[0]
-//    const synopsis = $('.text-wrap-pre-line > span').text()
-//    const details = $('.detail-infos__detail--values') //Needs to be more specific
-//    details.each(function(i, elm){
-//      //console.log($(this).children().length, " ", $(this).text())
-//      if($(this).children().length == 0){
-//        runtime = $(this).text();
-//        return false
-//      }
-//    })
-//    const movie = new MovieModel({
-//      name: name,
-//      year: year,
-//      runtime: runtime,
-//      synopsis: synopsis,
-//      image: image,
-//      categories: []
-//    })
-//    movie.save()
-//      .then(doc => {
-//        console.log("Successfully saved: ", name)
-//      })
-//      .catch(err => {
-//        console.log("Error saving", movie)
-//        console.log(err)
-//      })
-//}
-
-//async function getMovieData(page, routes){
-//  for(let i=0; i<routes.length; i++){
-//    axios(root_url + routes[i])
-//      .then(async(res) => {
-//        await sleep(2000)
-//        await parseHTMLMovieData(res.data)
-//      })
-//      .catch(err => {
-//        console.log(err)
-//      })
-//  }
-//}
 
 const getDataFromAPI = async() => {
   var movieResponses = []
   for(var i=1; i<10; i++){
-    const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?page=` + i, {
+    const res = await axios.get(`${API_URL}popular?page=` + i, {
       headers: {
         "Authorization": `Bearer ${accessToken}`,
         "Content-Type": "application/json;charset=utf-8"
@@ -104,7 +27,7 @@ const getDataFromAPI = async() => {
 const filterDataFromList = async(unfiltered) => {
   const filtered = unfiltered
   for(var i = filtered.length-1; i>0; i--){
-    const res = await axios.get(`https://api.themoviedb.org/3/movie/${filtered[i].id}/watch/providers`, {
+    const res = await axios.get(`${API_URL}${filtered[i].id}/watch/providers`, {
       headers: {
         "Authorization": `Bearer ${accessToken}`,
         "Content-Type": "application/json;charset=utf-8"
@@ -130,7 +53,7 @@ const saveDataToDatabase = async(filteredMovieList) => {
     const name = movie.title
     try{
       const synopsis = movie.overview
-      const image = "https://image.tmdb.org/t/p/w500" + movie.poster_path
+      const image = `${API_IMAGE_URL}${movie.poster_path}`
       const year = movie.release_date.split('-')[0]
       const movieEntry = new MovieModel({
         name: name,
@@ -160,7 +83,7 @@ const saveDataToDatabase = async(filteredMovieList) => {
   //Connect to mongoose
   const mongoose = require('mongoose')
   
-  const dbPath = 'mongodb://localhost/cinemadate';
+  const dbPath = DATABASE_URL 
   const options = {useNewUrlParser: true, useUnifiedTopology: true}
   const mongo = mongoose.connect(dbPath, options);
   

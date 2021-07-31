@@ -15,11 +15,13 @@ const app = express()
 
 require('dotenv').config()
 
+const DATABASE_URL = process.env.DATABASE_URL
+const ALLOW_ORIGIN = process.env.ALLOW_ORIGIN
 
 // App config
 app.use(cors({
 	credentials: true,
-	origin: 'http://localhost:3000'
+	origin: ALLOW_ORIGIN
 }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
@@ -33,7 +35,7 @@ app.use('/api/categories', categoryRouter)
 app.use('/api/user/', userRouter)
 
 //Connect to mongoose
-const dbPath = 'mongodb://localhost/cinemadate';
+const dbPath = DATABASE_URL;
 const options = {useNewUrlParser: true, useUnifiedTopology: true}
 const mongo = mongoose.connect(dbPath, options);
 
