@@ -3,23 +3,23 @@ apps:
     exec_mode: 'fork'
     name: 'worker-0'
     env:
-      PORT: 8000
+      PORT: 3500
       NODE_ENV: production
   - script: './server.js'
     exec_mode: 'fork'
     name: 'worker-1'
     env:
-      PORT: 8001
+      PORT: 3501
       NODE_ENV: production
   - script: './server.js'
     exec_mode: 'fork'
     name: 'worker-2'
     env:
-      PORT: 8002
+      PORT: 3502
       NODE_ENV: production
   - script: './server.js'
     exec_mode: 'fork'
     name: 'worker-3'
     env:
-      PORT: 8003
+      PORT: 3503
       NODE_ENV: production

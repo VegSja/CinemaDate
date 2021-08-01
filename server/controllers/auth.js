@@ -13,6 +13,7 @@ const addUserToDatabase = (res, req, data) => {
 	var existingUser = UserModel.findOne({email: data.email})
 		.then(doc => {
 			if(doc !== null){
+				console.log("Sending token as cookie")
 				res.cookie("JWT", generateAccessToken(doc.email), {
 					maxAge: 100000000, //One day
 					httpOnly: true
@@ -29,6 +30,11 @@ const addUserToDatabase = (res, req, data) => {
 				})
 				user.save()
 					.then(doc => {
+						console.log("Sending token as cookie")
+						res.cookie("JWT", generateAccessToken(doc.email), {
+							maxAge: 100000000, //One day
+							httpOnly: true
+						})
 						res.status(201).json({
 							success: true,
 							data: doc,
@@ -47,6 +53,7 @@ const addUserToDatabase = (res, req, data) => {
 }
 
 const checkAxiosIdToken = async (response, req, token) => {
+	console.log("Sending check via axios")
 	const rep = await axios.post("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + token, {
 		'Content-Type': 'text/json'
 	})
@@ -66,17 +73,10 @@ const postGoogleLogin = async (req, res) => {
 			idToken: token,
 			audience: process.env.CLIENT_ID
 		})
-		
-		const { name, email, picture } = ticket.getPayload()
-
-		res.status(201).json({
-			name: name,
-			email: email,
-			picture: picture
-		})
+		addUserToDatabase(res, req, ticket.getPayload())
 	}
 	catch(e){
-		//TODO: CHANGE THIS AT A LATER DATE
+		//The above code will throw on development, but not in production
 		try{
 			await checkAxiosIdToken(res, req, token)
 		}catch(error){

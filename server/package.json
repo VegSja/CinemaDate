@@ -23,6 +23,7 @@
     "express-session": "^1.17.2",
     "google-auth-library": "^7.3.0",
     "googleapis": "^82.0.0",
+    "jfile": "^1.1.12",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^2.0.4",
     "mongoose": "^5.13.1",

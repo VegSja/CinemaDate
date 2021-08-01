@@ -32,7 +32,7 @@ app.use('/api/auth', authRouter)
 app.use(authenticateToken)
 app.use('/api/movies', moviesRouter)
 app.use('/api/categories', categoryRouter)
-app.use('/api/user/', userRouter)
+app.use('/api/user', userRouter)
 
 //Connect to mongoose
 const dbPath = DATABASE_URL;
