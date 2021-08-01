@@ -66,8 +66,32 @@ const addLikedMovie = async(req, res) => {
 			})
 		})
 }
+
+const addDislikedMovie = async(req, res) => {
+	const movieId = req.body.movieId
+	const user = await UserModel.findOne({email: req.user})
+		.then(doc => {
+			doc.disliked_movies.push(movieId)
+			return doc.save()
+		})
+		.then(doc => {
+			res.status(200).json({
+				success: true,
+				data: doc
+			})
+		})
+		.catch(err => {
+			console.log(err)
+			res.status(400).json({
+				success: false,
+				message: err
+			})
+		})
+}
+
 module.exports = {
 	getLikedMovies,
 	getUnratedMovies,
-	addLikedMovie
+	addLikedMovie,
+	addDislikedMovie
 }
