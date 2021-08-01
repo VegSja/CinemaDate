@@ -43,11 +43,24 @@ export default function HomePage() {
 				console.log(err)
 			})
 	}
+	const onDislike = () => {
+		setIsLiked(true)
+		axios.post(REACT_APP_API_URL + "/user/disliked/movies", {
+			movieId : currentMovie._id
+		})
+			.then(res => {
+				console.log("Successfully sent dislike to server")
+				setCurrentMovie()
+			})
+			.catch(err => {
+				console.log(err)
+			})
+	}
 
 
 	return(
 		<div className="home-container grid-center">
-			<MovieLiker className={isLiked ? "float_out" : ""} onLike={onLike} movie={currentMovie}/>
+			<MovieLiker className={isLiked ? "float_out" : ""} onLike={onLike} onDislike={onDislike} movie={currentMovie}/>
 			<Modal show={err} onClose={() => setErr()}>
 					<h1> Encountered an error </h1>
 					{err}

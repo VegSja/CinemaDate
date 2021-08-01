@@ -16,7 +16,7 @@ export default function MovieLiker(props){
 			<MovieInfoComponent movie={movie} />	
 			<LikeButton onClick={props.onLike}/>
 
-			<DislikeButton />
+			<DislikeButton onClick={props.onDislike} />
 		</div>
 	)
 }
