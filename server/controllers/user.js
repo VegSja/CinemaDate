@@ -35,7 +35,6 @@ const getUnratedMovies = async(req, res) => {
 				success: true,
 				data: filtered_array
 			})
-			console.log("Sent unrated: ", filtered_array.map(movie => movie.name))
 		})
 		.catch(err => {
 			console.log(err)
@@ -54,7 +53,6 @@ const addLikedMovie = async(req, res) => {
 			return doc.save()
 		})
 		.then(doc => {
-			console.log("Added liked movie")
 			res.status(200).json({
 				success: true,
 				data: doc

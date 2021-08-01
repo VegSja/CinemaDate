@@ -33,7 +33,6 @@ async function getMovieWithName(name) {
 
 async function getMoviesWithCategory(categoryName){
 	var category = await CategoryModel.findOne({name: categoryName})
-	console.log(category)
 	return MovieModel.find({ categories: category }).populate('categories')
 }
 
