@@ -13,7 +13,6 @@ const addUserToDatabase = (res, req, data) => {
 	var existingUser = UserModel.findOne({email: data.email})
 		.then(doc => {
 			if(doc !== null){
-				console.log("Sending token as cookie")
 				res.cookie("JWT", generateAccessToken(doc.email), {
 					maxAge: 100000000, //One day
 					httpOnly: true
@@ -30,7 +29,6 @@ const addUserToDatabase = (res, req, data) => {
 				})
 				user.save()
 					.then(doc => {
-						console.log("Sending token as cookie")
 						res.cookie("JWT", generateAccessToken(doc.email), {
 							maxAge: 100000000, //One day
 							httpOnly: true
@@ -53,7 +51,6 @@ const addUserToDatabase = (res, req, data) => {
 }
 
 const checkAxiosIdToken = async (response, req, token) => {
-	console.log("Sending check via axios")
 	const rep = await axios.post("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + token, {
 		'Content-Type': 'text/json'
 	})
