@@ -169,6 +169,12 @@ img {
   .page-content {
     width: 100vw;
     height: 92vh;
+    align-items: stretch;
+    overflow: scroll;
+  }
+
+  .grid-center {
+    height: 92vh;
   }
 
   .info-container {
@@ -189,6 +195,21 @@ img {
   .poster-container {
     width: 70vw;
     margin: auto;
+  }
+
+  .poster-container-list {
+    width: 40vw;
+  }
+
+  .movie-list-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 3vw;
+    height: 92vh;
+  }
+
+  .page-header {
+    font-size: 4vh;
   }
 
   .movieTitle {

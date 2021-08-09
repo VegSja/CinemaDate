@@ -39,3 +39,32 @@ $color-bad: #F05D5E
   height: 10%
   width: 10%
   fill: $color-bad
+
+@media only screen and (max-width: 700px)
+  .modal-cover
+    position: fixed
+    top: 0vw
+    left: 0vw 
+    width: 100vw
+    height: 92vh
+
+  .modal
+    padding: 1vh
+    position: fixed
+    border-radius: 0.2vw
+    width: 60vw
+    height: auto
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+
+  .modal:hover .page-content
+    pointer-events: none
+
+  .close-button
+    position: absolute
+    top: 3%
+    right: 1%
+    height: 10%
+    width: 10%
+    fill: $color-bad
