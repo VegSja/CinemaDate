@@ -148,3 +148,37 @@ img
 .clickable:hover
   transform: scale(1.1)
   cursor: pointer
+
+@media only screen and (max-width: 700px)
+  .page-content
+    width: 100vw
+    height: 92vh
+
+  .info-container
+    grid-template-areas: "poster" "title" "description"
+    justify-items: center
+
+  .SmallInfo-container
+    display: none
+
+  .info-box
+    width: 70vw
+    max-height: 15vh
+    overflow: scroll
+
+  .poster-container
+    width: 70vw
+    margin: auto
+
+  //Text
+  .movieTitle
+    font-size: 4vh
+    height: auto
+    max-width: 70vw
+    display: none
+  
+  .info-header
+    display: none
+
+  .subtext
+    font-size: 2vh

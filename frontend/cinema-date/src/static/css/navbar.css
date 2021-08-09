@@ -61,4 +61,31 @@
   color: #F05D5E;
 }
 
+@media only screen and (max-width: 700px) {
+  .navbar {
+    position: fixed;
+    width: 100vw;
+    height: 8vh;
+    bottom: 0;
+  }
+
+  .navbar:hover {
+    width: 100vw;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .navbar-entry:last-child {
+    position: relative;
+    bottom: 0vh;
+  }
+
+  .svg-container {
+    min-width: 15vw;
+  }
+}
+
 /*# sourceMappingURL=navbar.css.map */
