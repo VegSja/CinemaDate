@@ -76,6 +76,15 @@
   .navbar-nav {
     flex-direction: row;
     align-items: center;
+    height: inherit;
+  }
+
+  nav {
+    height: inherit;
+  }
+
+  .navbar-entry {
+    margin: auto;
   }
 
   .navbar-entry:last-child {

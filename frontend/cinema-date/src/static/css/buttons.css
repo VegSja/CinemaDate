@@ -53,7 +53,8 @@
 }
 
 @media only screen and (max-width: 700px) {
-  .botton-container {
+  .button-container {
+    --main-border-radius: 1vh;
     width: 20vw;
     height: 20vw;
   }
