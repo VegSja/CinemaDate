@@ -37,6 +37,7 @@ body::-webkit-scrollbar-thumb {
 
 .page-header {
   font-size: 2vw;
+  text-align: center;
 }
 
 .info-header {
@@ -114,8 +115,10 @@ img {
 .movie-list-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  width: 85vw;
   grid-gap: 3vw;
   margin-bottom: 5vw;
+  margin-left: 5vw;
 }
 
 .SmallInfo-container {
@@ -170,8 +173,8 @@ img {
   .page-content {
     width: 100vw;
     height: 92vh;
-    align-items: center;
-    overflow: scroll;
+    align-items: stretch;
+    overflow: hidden;
   }
 
   .grid-center {
@@ -213,11 +216,17 @@ img {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 3vw;
-    height: 92vh;
+    width: 100vw;
+    height: 85vh;
+    overflow: scroll;
+    margin: 0;
   }
 
   .page-header {
     font-size: 4vh;
+    height: 5vh;
+    text-align: center;
+    margin: 1vh;
   }
 
   .movieTitle {

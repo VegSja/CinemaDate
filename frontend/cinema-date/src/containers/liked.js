@@ -49,15 +49,15 @@ export default function LikedPage(){
 	
 	return(
 		<div>
-		<div className={showModal ? "unfocused" : ""}>
-			<h1 className="page-header">Your Likes</h1>
-			<div className="movie-list-container">
-				{movies}
+			<div className={showModal ? "unfocused" : ""}>
+				<h1 className="page-header">Your Likes</h1>
+				<div className="movie-list-container">
+					{movies}
+				</div>
 			</div>
-		</div>
-			<Modal show={showModal} onClose={() => setShowModal(false)}>
-				{modalContent}				
-			</Modal>
+				<Modal show={showModal} onClose={() => setShowModal(false)}>
+					{modalContent}				
+				</Modal>
 		</div>
 	)
 }
