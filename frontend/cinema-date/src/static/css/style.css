@@ -139,6 +139,7 @@ img {
 .poster-container-list {
   grid-area: auto;
   width: 15vw;
+  height: auto;
 }
 
 .info-box {
@@ -182,6 +183,7 @@ img {
   }
 
   .info-container {
+    grid-row-gap: 1vh;
     grid-template-areas: "poster" "title" "description";
     justify-items: center;
   }
@@ -197,12 +199,14 @@ img {
   }
 
   .poster-container {
-    width: 70vw;
+    height: 50vh;
+    width: auto;
     margin: auto;
   }
 
   .poster-container-list {
     width: 40vw;
+    height: auto;
   }
 
   .movie-list-container {
