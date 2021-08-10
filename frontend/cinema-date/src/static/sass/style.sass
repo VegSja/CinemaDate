@@ -2,7 +2,7 @@ $primary-background-color: #022C43
 $floating-color: #115173
 $text-color-default: #F4F3EE
 $text-color-damped: #C4C4C4
-$accent-color: #FFD700
+$accent-color: #FDE74C
 $color-good: #6BAA75
 $color-bad: #F05D5E
 
@@ -27,7 +27,9 @@ body::-webkit-scrollbar-thumb
   height: 100vh
 
 .page-content
-  width: 95vw
+  width: 85vw
+  margin-left: 10vw
+  margin-right: 5vw
 
 .home-container
   display: flex
@@ -104,10 +106,15 @@ img
 .movie-list-container
   display: grid
   grid-template-columns: repeat(4, 1fr)
-  width: 85vw
+  width: inherit
   grid-gap: 3vw
   margin-bottom: 5vw
-  margin-left: 5vw
+
+.friend-list-container
+  display: flex
+  flex-direction: row
+  align-items: flex-start
+  width: inherit
 
 .SmallInfo-container
   display: flex
@@ -145,6 +152,13 @@ img
   margin-right: 2vw
   text-align: center
 
+.friend
+  display: flex
+
+  width: inherit
+  margin-bottom: 2vh
+  height: 5vh
+
 .clickable
   transition: transform 500ms ease
 
@@ -152,6 +166,26 @@ img
   transform: scale(1.1)
   cursor: pointer
 
+//Misc
+.online-indicator
+  width: 1vw
+  height: inherit
+  display: inline-block
+  margin-left: 0vw
+  margin-right: 1vw
+  background-color: $color-bad
+
+.profile-icon
+  width: 5vw
+  fill: $text-color-default
+
+.list-name
+  display: inline-block
+  max-width: 50vw
+  margin: auto
+  margin-left: 1vw
+  height: auto
+  font-size: 3vw
 @media only screen and (max-width: 700px)
   .page-content
     position: absolute
