@@ -36,7 +36,7 @@
   width: 5vw;
   top: 0;
   transition: width 500ms ease;
-  z-index: 0;
+  z-index: 1;
 }
 
 .navbar:hover {

@@ -140,6 +140,7 @@ img {
   grid-area: auto;
   width: 15vw;
   height: auto;
+  z-index: 10;
 }
 
 .info-box {
